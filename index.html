@@ -1504,5 +1504,14 @@ if (heroCTA && mobileBar) {
 <!-- ── BACK TO TOP ── -->
 <button class="back-top" id="back-top" aria-label="Back to top" title="Back to top">↑</button>
 
+<!-- Meta Pixel — Track Lead on every affiliate link click -->
+<script>
+document.querySelectorAll('a[href*="systeme.io"]').forEach(function(link){
+  link.addEventListener('click', function(){
+    fbq('track', 'Lead');
+  });
+});
+</script>
+
 </body>
 </html>
