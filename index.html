@@ -1302,8 +1302,10 @@ if (heroCTA && mobileBar) {
 
 /* ─────────────────────────────────────────
    EXIT INTENT POPUP
-   Fires on desktop when mouse leaves toward
-   top of browser. Once per session only.
+   Triggers on TWO conditions (whichever fires first):
+   1. Mouse leaves toward top of browser (desktop)
+   2. User scrolls past 85% of page (all devices)
+   Once per session only.
 ───────────────────────────────────────── */
 (function() {
   const overlay  = document.getElementById('exit-overlay');
@@ -1311,10 +1313,8 @@ if (heroCTA && mobileBar) {
   const skipBtn  = document.getElementById('exit-skip');
   const SEEN_KEY = 'exit_seen';
 
-  // Don't show if already seen this session
+  if (!overlay) return;
   if (sessionStorage.getItem(SEEN_KEY)) return;
-  // Don't fire on mobile (no mouse)
-  if (window.innerWidth < 768) return;
 
   let fired = false;
 
@@ -1331,19 +1331,24 @@ if (heroCTA && mobileBar) {
     document.body.style.overflow = '';
   }
 
-  // Fire when mouse leaves toward top of page
-  document.addEventListener('mouseleave', (e) => {
-    if (e.clientY <= 8) showPopup();
-  });
+  // Trigger 1: Mouse leaves toward top (desktop)
+  if (window.innerWidth >= 768) {
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY <= 20) showPopup();
+    });
+  }
 
-  // Close on X button, skip button, or overlay background click
+  // Trigger 2: Scroll past 85% of page (works on all devices)
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    if (pct >= 0.85) showPopup();
+  }, { passive: true });
+
   closeBtn.addEventListener('click', closePopup);
   skipBtn.addEventListener('click', closePopup);
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closePopup();
   });
-
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePopup();
   });
@@ -1351,15 +1356,14 @@ if (heroCTA && mobileBar) {
 
 /* ─────────────────────────────────────────
    BACK TO TOP BUTTON
-   Appears after scrolling 400px.
-   Smooth scrolls to top on click.
+   Appears after scrolling 200px.
 ───────────────────────────────────────── */
 (function() {
   const btn = document.getElementById('back-top');
   if (!btn) return;
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
+    if (window.scrollY > 200) {
       btn.classList.add('show');
     } else {
       btn.classList.remove('show');
