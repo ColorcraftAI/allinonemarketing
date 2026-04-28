@@ -85,6 +85,15 @@
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7V1HZXS6X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7V1HZXS6X');
+</script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -424,7 +433,123 @@ footer a:hover { color: var(--blue); }
 .who-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
 .who-cta { text-align: center; margin-top: 28px; }
 
-/* ── GUARANTEE BADGE ── */
+/* ── MID-PAGE CTA STRIPS ── */
+.cta-strip {
+  background: var(--blue-lt);
+  border-top: 1px solid var(--blue-mid);
+  border-bottom: 1px solid var(--blue-mid);
+  padding: 32px 6%; text-align: center;
+}
+.cta-strip.dark { background: var(--ink); border-color: var(--ink-soft); }
+.cta-strip p.cs-head { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 16px; line-height: 1.4; }
+.cta-strip.dark p.cs-head { color: #fff; }
+.cta-strip .cs-risk { margin-top: 10px; font-size: 12.5px; color: var(--muted); font-style: italic; }
+.cta-strip.dark .cs-risk { color: rgba(255,255,255,0.45); }
+.btn-blue-sm {
+  background: var(--blue); color: #fff; font-weight: 700; font-size: 15px;
+  padding: 12px 28px; border-radius: var(--r); text-decoration: none;
+  display: inline-block; transition: background .18s, transform .15s, box-shadow .18s;
+}
+.btn-blue-sm:hover { background: var(--blue-dk); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(42,165,247,0.3); }
+.nav-btn-urgent { animation: pulse-btn 2.5s infinite; }
+@keyframes pulse-btn { 0%,100%{box-shadow:0 0 0 0 rgba(42,165,247,0.5)} 60%{box-shadow:0 0 0 7px rgba(42,165,247,0)} }
+
+/* ── EXIT INTENT POPUP ── */
+.exit-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(13,27,64,0.7);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+}
+.exit-overlay.show { opacity: 1; pointer-events: auto; }
+.exit-modal {
+  background: #fff; border-radius: 20px;
+  max-width: 520px; width: 100%;
+  padding: 44px 40px 36px;
+  text-align: center;
+  position: relative;
+  transform: translateY(24px);
+  transition: transform .35s ease;
+  box-shadow: 0 24px 60px rgba(13,27,64,0.25);
+}
+.exit-overlay.show .exit-modal { transform: translateY(0); }
+.exit-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none;
+  font-size: 22px; color: var(--muted);
+  cursor: pointer; line-height: 1;
+  transition: color .15s;
+}
+.exit-close:hover { color: var(--ink); }
+.exit-emoji { font-size: 44px; margin-bottom: 14px; display: block; }
+.exit-modal h3 {
+  font-size: 24px; font-weight: 900;
+  color: var(--ink); letter-spacing: -0.5px;
+  line-height: 1.2; margin-bottom: 10px;
+}
+.exit-modal h3 span { color: var(--blue); }
+.exit-modal p {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.6; margin-bottom: 24px;
+}
+.exit-freelist {
+  list-style: none;
+  background: var(--blue-lt);
+  border: 1px solid var(--blue-mid);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.exit-freelist li {
+  font-size: 14px; font-weight: 600;
+  color: var(--ink); padding: 5px 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.exit-freelist li::before {
+  content: '✓'; color: var(--green);
+  font-weight: 800; flex-shrink: 0;
+}
+.exit-cta {
+  display: block; width: 100%;
+  background: var(--blue); color: #fff;
+  font-weight: 800; font-size: 16px;
+  padding: 15px; border-radius: 10px;
+  text-decoration: none; text-align: center;
+  transition: background .18s, transform .15s;
+}
+.exit-cta:hover { background: var(--blue-dk); transform: translateY(-1px); }
+.exit-skip {
+  display: block; margin-top: 12px;
+  font-size: 12.5px; color: var(--muted);
+  cursor: pointer; background: none; border: none;
+  font-family: 'Inter', sans-serif;
+  transition: color .15s;
+}
+.exit-skip:hover { color: var(--ink); }
+
+/* ── BACK TO TOP BUTTON ── */
+.back-top {
+  position: fixed; bottom: 88px; right: 20px; z-index: 400;
+  width: 44px; height: 44px;
+  background: var(--blue); color: #fff;
+  border: none; border-radius: 50%;
+  font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(42,165,247,0.4);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .3s ease, transform .3s ease, background .18s;
+  pointer-events: none;
+}
+.back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-top:hover { background: var(--blue-dk); box-shadow: 0 6px 20px rgba(42,165,247,0.5); }
+@media(max-width:720px){
+  .back-top { bottom: 80px; right: 14px; width: 40px; height: 40px; font-size: 17px; }
+  .exit-modal { padding: 36px 24px 28px; }
+  .exit-modal h3 { font-size: 20px; }
+}
 .guarantee-row { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: nowrap; margin-top: 20px; padding: 14px 20px; background: #fff; border: 1px solid var(--border); border-radius: 12px; max-width: 1060px; margin-left: auto; margin-right: auto; overflow-x: auto; }
 .guarantee-item { display: flex; align-items: center; gap: 7px; flex-shrink: 0; padding: 0 16px; }
 .guarantee-icon { font-size: 18px; flex-shrink: 0; }
@@ -512,10 +637,11 @@ footer a:hover { color: var(--blue); }
   <h1>The <span class="bl">Only Tool</span> You Need<br>to Launch Your Online Business</h1>
   <p class="hero-sub">Funnels. Email marketing. Online courses. Automation. Affiliate program. Website builder — all in one platform. Starting at $0.</p>
   <div class="hero-btns">
-    <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue">Start for free →</a>
+    <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue">Get all 8 tools for $0 →</a>
     <a href="#pricing" class="btn-wt">See Pricing ↓</a>
   </div>
   <p class="hero-note"><b>✔ Free forever plan</b> &nbsp;·&nbsp; <b>✔ No credit card required</b> &nbsp;·&nbsp; <b>✔ Ready in 2 minutes</b></p>
+  <p style="margin-top:8px;font-size:12.5px;color:var(--muted);font-style:italic;">Worst case: it's free and you lose absolutely nothing.</p>
   <div class="feat-tags">
     <div class="tag"><span class="tag-dot">●</span> Sales Funnels</div>
     <div class="tag"><span class="tag-dot">●</span> Email Marketing</div>
@@ -545,6 +671,13 @@ footer a:hover { color: var(--blue); }
   </div>
 </section>
 
+<!-- CTA STRIP 1 — after Why -->
+<div class="cta-strip">
+  <p class="cs-head">Still paying $400+/month for separate tools?<br>Replace all of them for <span style="color:var(--blue);">$0 right now.</span></p>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue-sm">Replace my tools for free →</a>
+  <p class="cs-risk">No credit card. No commitment. Free forever.</p>
+</div>
+
 <!-- FEATURES -->
 <section class="sec feats">
   <div class="center">
@@ -563,6 +696,13 @@ footer a:hover { color: var(--blue); }
     <div class="frow rv"><div class="frow-ic">📅</div><div><h4>Booking Calendar</h4><p>Let clients book calls directly. Syncs automatically with Google Calendar, Google Meet, and Zoom.</p></div></div>
   </div>
 </section>
+
+<!-- CTA STRIP 2 — after Features -->
+<div class="cta-strip dark">
+  <p class="cs-head">8 tools. One platform. <span style="color:var(--blue);">Zero monthly fees to start.</span></p>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue-sm">Get all 8 tools for $0 →</a>
+  <p class="cs-risk">Free plan never expires. Upgrade only when you're ready.</p>
+</div>
 
 <!-- ── WHO IS THIS FOR ── -->
 <section class="sec who" aria-label="Who is Systeme.io for">
@@ -604,7 +744,8 @@ footer a:hover { color: var(--blue); }
     </div>
   </div>
   <div class="who-cta">
-    <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue">Yes, this is for me — Start free →</a>
+    <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue">Yes, this is for me — Claim my free account →</a>
+    <p style="margin-top:10px;font-size:12.5px;color:var(--muted);font-style:italic;">No credit card. No tech skills needed. Up and running in 2 minutes.</p>
   </div>
 </section>
 
@@ -806,6 +947,13 @@ footer a:hover { color: var(--blue); }
   </div>
 </section>
 
+<!-- CTA STRIP 3 — after Includes -->
+<div class="cta-strip">
+  <p class="cs-head">Everything above — unlimited emails, storage, students — <span style="color:var(--blue);">included on the free plan.</span></p>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue-sm">Claim my free account →</a>
+  <p class="cs-risk">Worst case: you get a powerful free tool and lose nothing.</p>
+</div>
+
 <!-- TESTIMONIALS -->
 <section class="sec testi">
   <div class="center">
@@ -834,6 +982,13 @@ footer a:hover { color: var(--blue); }
   </div>
 </section>
 
+<!-- CTA STRIP 4 — after Testimonials -->
+<div class="cta-strip dark">
+  <p class="cs-head">Join them. <span style="color:var(--blue);">Your free account takes 2 minutes to set up.</span></p>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue-sm">Start like they did — It's free →</a>
+  <p class="cs-risk">No risk. No credit card. No time limit on the free plan.</p>
+</div>
+
 <!-- COMPARE vs COMPETITORS -->
 <section class="sec compare">
   <div class="center">
@@ -857,6 +1012,13 @@ footer a:hover { color: var(--blue); }
     </table>
   </div>
 </section>
+
+<!-- CTA STRIP 5 — after Compare -->
+<div class="cta-strip">
+  <p class="cs-head">ClickFunnels charges $97/mo for less. <span style="color:var(--blue);">Systeme.io starts at $0.</span></p>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue-sm">Switch and save — Start free →</a>
+  <p class="cs-risk">Free migration included. No contracts. Cancel anytime.</p>
+</div>
 
 <!-- FAQ -->
 <section class="sec faq">
@@ -896,12 +1058,20 @@ footer a:hover { color: var(--blue); }
   </div>
 </section>
 
+<!-- CTA STRIP 6 — after FAQ -->
+<div class="cta-strip dark">
+  <p class="cs-head">Questions answered. <span style="color:var(--blue);">One click is all that's left.</span></p>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue-sm">Start for free — no questions asked →</a>
+  <p class="cs-risk">Free forever. No credit card. Downgrade or cancel anytime.</p>
+</div>
+
 <!-- FINAL CTA -->
 <section class="cta-final">
   <h2>Your online business<br>starts today. For free.</h2>
   <p>Join 500,000+ entrepreneurs who chose the smarter, simpler way to build and grow online.</p>
-  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-wh">Start for free →</a>
+  <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-wh">Claim my free account — no card needed →</a>
   <p class="cta-note"><b>Free forever plan</b> &nbsp;·&nbsp; <b>No credit card</b> &nbsp;·&nbsp; <b>Up and running in 2 minutes</b></p>
+  <p style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.35);font-style:italic;">Worst case: you get a powerful free tool and lose nothing.</p>
 </section>
 
 <footer>
@@ -1105,10 +1275,19 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-/* ── NAV SHADOW ── */
+/* ── NAV SHADOW + URGENCY SHIFT ── */
+const navBtn = document.querySelector('.nav-btn');
 window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
   document.querySelector('nav').style.boxShadow =
     window.scrollY > 8 ? '0 2px 20px rgba(42,165,247,0.12)' : 'none';
+  if (pct > 0.28) {
+    navBtn.textContent = '🔥 Limited offer — Start free';
+    navBtn.classList.add('nav-btn-urgent');
+  } else {
+    navBtn.textContent = 'Start for free →';
+    navBtn.classList.remove('nav-btn-urgent');
+  }
 });
 
 /* ── MOBILE BAR: hide when CTA is visible ── */
@@ -1120,6 +1299,77 @@ if (heroCTA && mobileBar) {
   }, { threshold: 0.1 });
   barObs.observe(heroCTA);
 }
+
+/* ─────────────────────────────────────────
+   EXIT INTENT POPUP
+   Fires on desktop when mouse leaves toward
+   top of browser. Once per session only.
+───────────────────────────────────────── */
+(function() {
+  const overlay  = document.getElementById('exit-overlay');
+  const closeBtn = document.getElementById('exit-close');
+  const skipBtn  = document.getElementById('exit-skip');
+  const SEEN_KEY = 'exit_seen';
+
+  // Don't show if already seen this session
+  if (sessionStorage.getItem(SEEN_KEY)) return;
+  // Don't fire on mobile (no mouse)
+  if (window.innerWidth < 768) return;
+
+  let fired = false;
+
+  function showPopup() {
+    if (fired) return;
+    fired = true;
+    sessionStorage.setItem(SEEN_KEY, '1');
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Fire when mouse leaves toward top of page
+  document.addEventListener('mouseleave', (e) => {
+    if (e.clientY <= 8) showPopup();
+  });
+
+  // Close on X button, skip button, or overlay background click
+  closeBtn.addEventListener('click', closePopup);
+  skipBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+  });
+})();
+
+/* ─────────────────────────────────────────
+   BACK TO TOP BUTTON
+   Appears after scrolling 400px.
+   Smooth scrolls to top on click.
+───────────────────────────────────────── */
+(function() {
+  const btn = document.getElementById('back-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
 </script>
 <!-- ── SOCIAL PROOF TOAST ── -->
 <div class="sp-toast" id="sp-toast" role="alert" aria-live="polite">
@@ -1130,6 +1380,29 @@ if (heroCTA && mobileBar) {
     <span class="sp-toast-time" id="sp-time">2 minutes ago</span>
   </div>
 </div>
+
+<!-- ── EXIT INTENT POPUP ── -->
+<div class="exit-overlay" id="exit-overlay" role="dialog" aria-modal="true" aria-label="Special offer">
+  <div class="exit-modal">
+    <button class="exit-close" id="exit-close" aria-label="Close">✕</button>
+    <span class="exit-emoji">🎁</span>
+    <h3>Wait — the free plan is <span>genuinely free.</span></h3>
+    <p>No trial. No expiry. No credit card. Here's exactly what you get at $0:</p>
+    <ul class="exit-freelist">
+      <li>3 sales funnels with upsells &amp; order bumps</li>
+      <li>Unlimited emails to 2,000 contacts</li>
+      <li>1 online course — host &amp; sell, keep 100%</li>
+      <li>1 website with custom domain</li>
+      <li>Built-in affiliate program</li>
+      <li>Stripe &amp; PayPal — 0% transaction fees</li>
+    </ul>
+    <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="exit-cta">Yes — give me the free account →</a>
+    <button class="exit-skip" id="exit-skip">No thanks, I'll keep paying for separate tools</button>
+  </div>
+</div>
+
+<!-- ── BACK TO TOP ── -->
+<button class="back-top" id="back-top" aria-label="Back to top" title="Back to top">↑</button>
 
 </body>
 </html>
