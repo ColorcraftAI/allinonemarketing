@@ -5,4 +5,4 @@ Allow: /terms.html
 Allow: /cookie-policy.html
 Allow: /affiliate-disclosure.html
 
-Sitemap: https://allinonemarketing.vercel.app/sitemap.xml
+Sitemap: https://www.allinonemarketing.pro/sitemap.xml

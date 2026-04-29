@@ -5,35 +5,35 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
-    <loc>https://allinonemarketing.vercel.app/</loc>
+    <loc>https://www.allinonemarketing.pro/</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://allinonemarketing.vercel.app/privacy-policy.html</loc>
+    <loc>https://www.allinonemarketing.pro/privacy-policy.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
-    <loc>https://allinonemarketing.vercel.app/terms.html</loc>
+    <loc>https://www.allinonemarketing.pro/terms.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
-    <loc>https://allinonemarketing.vercel.app/cookie-policy.html</loc>
+    <loc>https://www.allinonemarketing.pro/cookie-policy.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://allinonemarketing.vercel.app/affiliate-disclosure.html</loc>
+    <loc>https://www.allinonemarketing.pro/affiliate-disclosure.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
