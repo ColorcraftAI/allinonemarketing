@@ -53,6 +53,18 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "name": "AllinoneMarketing",
+      "url": "https://allinonemarketing.vercel.app/",
+      "description": "Independent affiliate marketing resource promoting Systeme.io — the all-in-one platform for online entrepreneurs.",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@type": "Organization",
+        "name": "AllinoneMarketing",
+        "url": "https://allinonemarketing.vercel.app/"
+      }
+    },
+    {
       "@type": "Organization",
       "name": "AllinoneMarketing",
       "url": "https://allinonemarketing.vercel.app/",
@@ -60,7 +72,13 @@
         "@type": "ImageObject",
         "url": "https://allinonemarketing.vercel.app/favicon.ico"
       },
-      "description": "Independent affiliate marketing resource for online entrepreneurs."
+      "description": "Independent affiliate marketing resource for online entrepreneurs.",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "privacy@allinonemarketing.pro",
+        "contactType": "customer support"
+      }
     },
     {
       "@type": "WebPage",
@@ -69,6 +87,7 @@
       "url": "https://allinonemarketing.vercel.app/",
       "datePublished": "2026-01-01",
       "dateModified": "2026-04-28",
+      "inLanguage": "en-US",
       "publisher": {
         "@type": "Organization",
         "name": "AllinoneMarketing",
@@ -84,7 +103,13 @@
             "item": "https://allinonemarketing.vercel.app/"
           }
         ]
-      }
+      },
+      "relatedLink": [
+        "https://allinonemarketing.vercel.app/privacy-policy.html",
+        "https://allinonemarketing.vercel.app/terms.html",
+        "https://allinonemarketing.vercel.app/cookie-policy.html",
+        "https://allinonemarketing.vercel.app/affiliate-disclosure.html"
+      ]
     },
     {
       "@type": "FAQPage",
@@ -447,7 +472,33 @@ footer a:hover { color: var(--blue); }
 .rv { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
 .rv.in { opacity: 1; transform: translateY(0); }
 
-/* ── PRICING COUNTDOWN (inside pricing section) ── */
+/* ── ROTATING HEADLINE ── */
+.rotate-wrap {
+  display: inline;
+  position: relative;
+}
+.rotate-word {
+  color: var(--blue);
+  display: inline-block;
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+  white-space: nowrap;
+}
+.rotate-word.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  position: relative;
+  left: auto;
+  transform: translateY(0);
+}
+.rotate-word.exit {
+  opacity: 0;
+  transform: translateY(-10px);
+  position: absolute;
+}
 .pricing-urgency {
   max-width: 1060px; margin: 0 auto 24px;
   background: #0D1B40;
@@ -730,7 +781,10 @@ footer a:hover { color: var(--blue); }
     <strong id="live-count">--</strong>&nbsp;people are viewing this page right now
   </div>
   <div class="hero-chip"><div class="chip-dot"></div>500,000+ entrepreneurs already use this</div>
-  <h1>The <span class="bl">Only Tool</span> You Need<br>to Launch Your Online Business</h1>
+  <h1 style="line-height:1.15;">
+    Your Platform for<br>
+    <span id="rotate-container" class="bl" style="display:inline-block;"></span>
+  </h1>
   <p class="hero-sub">Funnels. Email marketing. Online courses. Automation. Affiliate program. Website builder — all in one platform. Starting at $0.</p>
   <div class="hero-btns">
     <a href="https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b" target="_blank" rel="noopener" class="btn-blue">Get all 8 tools for $0 →</a>
@@ -1174,6 +1228,12 @@ footer a:hover { color: var(--blue); }
   <div class="ft-logo">Allinone<span>Marketing</span></div>
   <p>This is an independent affiliate promotion page.<br>All product features, pricing, and trademarks belong to <a href="https://systeme.io" target="_blank">Systeme.io</a>.</p>
   <br>
+  <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;">
+    <a href="/privacy-policy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms & Conditions</a>
+    <a href="/cookie-policy.html">Cookie Policy</a>
+    <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
+  </div>
   <p style="font-size:12px;color:rgba(255,255,255,0.22);max-width:680px;margin:0 auto;line-height:1.7;">
     <strong style="color:rgba(255,255,255,0.35);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Affiliate Disclosure & Ad Disclaimer</strong><br>
     This page contains affiliate links. If you click a link and sign up for Systeme.io, we may earn a commission at no extra cost to you. This content is an independent promotional page and is not endorsed by, affiliated with, or sponsored by Meta (Facebook) or Instagram. Results mentioned are not typical and individual results will vary. This is not a guarantee of income or earnings. All claims about Systeme.io features and pricing are based on publicly available information and are subject to change. Please review Systeme.io's own terms and conditions before purchasing. This promotion complies with Meta's Advertising Policies and FTC disclosure guidelines.
@@ -1371,7 +1431,52 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-/* ── NAV SHADOW + URGENCY SHIFT ── */
+/* ─────────────────────────────────────────
+   ROTATING HEADLINE
+   Cycles through 5 phrases every 2.5 seconds
+   with smooth fade + slide animation
+───────────────────────────────────────── */
+(function() {
+  const phrases = [
+    'Funnels & Sales Pages',
+    'Email Marketing',
+    'Online Courses',
+    'Websites & Blogs',
+    'Affiliate Programs',
+    'Marketing Automation'
+  ];
+
+  const container = document.getElementById('rotate-container');
+  if (!container) return;
+
+  let current = 0;
+
+  // Set initial text immediately
+  container.textContent = phrases[0];
+
+  setInterval(() => {
+    // Fade out
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(-8px)';
+    container.style.transition = 'opacity .4s ease, transform .4s ease';
+
+    setTimeout(() => {
+      current = (current + 1) % phrases.length;
+      container.textContent = phrases[current];
+      // Fade in from below
+      container.style.transform = 'translateY(8px)';
+      container.style.opacity = '0';
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          container.style.opacity = '1';
+          container.style.transform = 'translateY(0)';
+        });
+      });
+    }, 400);
+
+  }, 2500);
+})();
 const navBtn = document.querySelector('.nav-btn');
 window.addEventListener('scroll', () => {
   const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
