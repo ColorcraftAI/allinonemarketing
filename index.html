@@ -1611,11 +1611,25 @@ if (heroCTA && mobileBar) {
 
 <!-- Meta Pixel — Track Lead on every affiliate link click -->
 <script>
-document.querySelectorAll('a[href*="systeme.io"]').forEach(function(link){
-  link.addEventListener('click', function(){
-    fbq('track', 'Lead');
-  });
-});
+(function() {
+  function trackLead() {
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {}, { transport: 'beacon' });
+    }
+  }
+
+  // Event delegation — catches ALL clicks including dynamically added elements
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    // Walk up DOM in case user clicked a child element inside the link
+    while (el && el.tagName !== 'A') {
+      el = el.parentElement;
+    }
+    if (el && el.href && el.href.indexOf('systeme.io') !== -1) {
+      trackLead();
+    }
+  }, true); // useCapture: true fires before browser navigation
+})();
 </script>
 
 </body>
