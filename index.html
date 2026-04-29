@@ -1279,10 +1279,12 @@ function toggleBilling() {
   const subs   = isAnnual ? SUB_YR : SUB_MO;
 
   ['p0','p1','p2','p3'].forEach((id, i) => {
-    document.getElementById(id).textContent = prices[i];
+    const el = document.getElementById(id);
+    if (el) el.textContent = prices[i];
   });
   ['sub1','sub2','sub3'].forEach((id, i) => {
-    document.getElementById(id).textContent = subs[i + 1];
+    const el = document.getElementById(id);
+    if (el) el.textContent = subs[i + 1];
   });
 }
 
@@ -1313,6 +1315,8 @@ function toggleFaq(btn) {
   const hEl = document.getElementById('cd-h');
   const mEl = document.getElementById('cd-m');
   const sEl = document.getElementById('cd-s');
+
+  if (!hEl || !mEl || !sEl) return;
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -1347,6 +1351,7 @@ function toggleFaq(btn) {
 ───────────────────────────────────────── */
 (function() {
   const el = document.getElementById('live-count');
+  if (!el) return;
   const MIN = 10, MAX = 70;
 
   // Start at a random number between 28–52 (mid-range feels credible)
