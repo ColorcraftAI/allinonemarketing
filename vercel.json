@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "redirects": [
-    {
-      "source": "/go",
-      "destination": "https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b",
-      "permanent": false
-    }
-  ],
   "routes": [
+    {
+      "src": "/go",
+      "status": 302,
+      "headers": {
+        "Location": "https://systeme.io/?sa=sa0054565921314ae9dc8ba378e71ad2ea2c91c22b"
+      }
+    },
     {
       "src": "/sitemap.xml",
       "dest": "/sitemap.xml",
